@@ -7,8 +7,9 @@
 - Maven
 - JUnit 4
 - Selenium
-PR CHECK
 
 ## Запуск тестов
 ```bash
 mvn clean test
+
+PR TEST
