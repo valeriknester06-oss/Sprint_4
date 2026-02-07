@@ -11,4 +11,4 @@
 ## Запуск тестов
 ```bash
 mvn clean test
-Pull request for review
+PR check
