@@ -13,7 +13,7 @@ public class MainPage {
     // Куки
     private final By cookieButton = By.id("rcc-confirm-button");
 
-    // Кнопки "Заказать" (верхняя и нижняя)
+
     private final By orderButtonTop =
             By.xpath("//div[contains(@class,'Header_Nav')]//button[normalize-space()='Заказать']");
     private final By orderButtonBottom =

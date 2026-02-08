@@ -17,10 +17,12 @@ public class OrderConfirmPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
+    // Модалка именно подтверждения (с текстом вопроса)
     private final By confirmModal = By.xpath(
             "//*[contains(@class,'Order_Modal')][.//*[contains(normalize-space(.),'Хотите оформить заказ')]]"
     );
 
+    // Кнопка "Да" внутри этой модалки (привязываемся к контейнеру, не к классам кнопки)
     private final By yesButton = By.xpath(
             "//*[contains(@class,'Order_Modal')][.//*[contains(normalize-space(.),'Хотите оформить заказ')]]" +
                     "//button[normalize-space()='Да']"
@@ -46,7 +48,8 @@ public class OrderConfirmPage {
                 new Actions(driver).moveToElement(yes).pause(Duration.ofMillis(150)).click().perform();
                 clicked = true;
             } catch (Exception ignored) {}
-  
+        }
+
         if (!clicked) {
             try {
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", yes);
