@@ -24,7 +24,6 @@ public class OrderData {
         this.comment = comment;
     }
 
-    // ===== готовые тестовые данные =====
 
     public static OrderData defaultBlack() {
         return new OrderData(
