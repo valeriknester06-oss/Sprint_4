@@ -54,11 +54,10 @@ public class OrderPage {
             "//div[contains(@class,'Order_ModalHeader') and contains(.,'Заказ оформлен')]"
     );
 
-    // запасной локатор успеха (устойчиво)
+    // запасной локатор успеха
     private final By orderSuccess =
             By.xpath("//*[contains(@class,'Order_Modal')]//*[contains(normalize-space(.),'Заказ оформлен')]");
 
-    // ======================= public API =======================
 
     public void waitForLoad() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(stepOneHeader));
@@ -88,40 +87,32 @@ public class OrderPage {
         clearAndType(dateInput, d.date);
         driver.findElement(dateInput).sendKeys(Keys.ENTER);
 
-        // убедиться, что дата встала
         wait.until(dr -> {
             String v = dr.findElement(dateInput).getAttribute("value");
             return v != null && !v.trim().isEmpty();
         });
 
-        // закрыть календарь
         clickBody();
 
-        // срок аренды
         safeClick(rentDropdown);
         safeClick(By.xpath("//div[contains(@class,'Dropdown-option') and normalize-space()='" + d.rentPeriod + "']"));
 
-        // цвет (часто обязателен)
         selectColorSmart(d.color);
 
         // комментарий
         if (d.comment != null && !d.comment.isBlank()) {
             clearAndType(commentInput, d.comment);
         }
-
-        // снять фокус перед "Заказать"
+        
         clickBody();
 
         // Нажимаем "Заказать"
         safeClick(orderButton);
 
-        // ждём появления модалки подтверждения
         wait.until(ExpectedConditions.visibilityOfElementLocated(confirmModal));
 
-        // жмём "Да" (внутри OrderConfirmPage)
         new OrderConfirmPage(driver).clickYes();
 
-        // ждём успех (сначала как в тесте, если вдруг не найдётся — запасной)
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(successHeader));
         } catch (TimeoutException e) {
@@ -136,7 +127,6 @@ public class OrderPage {
                 .isDisplayed();
     }
 
-    // ======================= helpers =======================
 
     private void acceptCookiesIfPresent() {
         try {
