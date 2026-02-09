@@ -10,7 +10,7 @@ public class MainPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    // Куки
+
     private final By cookieButton = By.id("rcc-confirm-button");
 
 
