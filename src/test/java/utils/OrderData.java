@@ -8,7 +8,7 @@ public class OrderData {
     public final String phone;
     public final String date;
     public final String rentPeriod;
-    public final String color;     // добавили цвет
+    public final String color;
     public final String comment;
 
     public OrderData(String name, String surname, String address, String metro, String phone,
@@ -23,7 +23,6 @@ public class OrderData {
         this.color = color;
         this.comment = comment;
     }
-
 
     public static OrderData defaultBlack() {
         return new OrderData(

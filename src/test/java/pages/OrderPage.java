@@ -1,5 +1,6 @@
 package pages;
 
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,7 +17,6 @@ public class OrderPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-    // ===== Шаг 1 =====
     private final By stepOneHeader =
             By.xpath("//div[contains(@class,'Order_Header') and contains(.,'Для кого самокат')]");
 
@@ -27,37 +27,29 @@ public class OrderPage {
     private final By phoneInput = By.cssSelector("input[placeholder*='Телефон']");
     private final By nextButton = By.xpath("//button[normalize-space()='Далее']");
 
-    // ===== Шаг 2 =====
     private final By dateInput = By.xpath("//input[contains(@placeholder,'Когда привезти')]");
     private final By rentDropdown = By.className("Dropdown-control");
     private final By commentInput = By.xpath("//input[contains(@placeholder,'Комментарий')]");
 
-    // нижняя кнопка "Заказать" (в форме)
     private final By orderButton =
             By.xpath("//div[contains(@class,'Order_Buttons')]/button[normalize-space()='Заказать']");
 
-    // Цвета
+
     private final By colorBlack = By.id("black");
     private final By colorGrey = By.id("grey");
 
-    // Куки
     private final By cookieButton = By.id("rcc-confirm-button");
 
-    // ===== Модалки =====
-    // модалка подтверждения "Хотите оформить заказ?"
     private final By confirmModal = By.xpath(
             "//*[contains(@class,'Order_Modal')][.//*[contains(normalize-space(.),'Хотите оформить заказ')]]"
     );
 
-    // успех (как в тесте)
     private final By successHeader = By.xpath(
             "//div[contains(@class,'Order_ModalHeader') and contains(.,'Заказ оформлен')]"
     );
 
-    // запасной локатор успеха
     private final By orderSuccess =
             By.xpath("//*[contains(@class,'Order_Modal')]//*[contains(normalize-space(.),'Заказ оформлен')]");
-
 
     public void waitForLoad() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(stepOneHeader));
@@ -78,12 +70,12 @@ public class OrderPage {
 
         safeClick(nextButton);
 
-        // дождаться шага 2
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(dateInput));
     }
 
     public void fillStepTwoAndSubmit(OrderData d) {
-        // дата
+
         clearAndType(dateInput, d.date);
         driver.findElement(dateInput).sendKeys(Keys.ENTER);
 
@@ -99,19 +91,19 @@ public class OrderPage {
 
         selectColorSmart(d.color);
 
-        // комментарий
         if (d.comment != null && !d.comment.isBlank()) {
             clearAndType(commentInput, d.comment);
         }
-        
+
         clickBody();
 
-        // Нажимаем "Заказать"
         safeClick(orderButton);
+
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(confirmModal));
 
         new OrderConfirmPage(driver).clickYes();
+
 
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(successHeader));
@@ -126,7 +118,6 @@ public class OrderPage {
                 .until(ExpectedConditions.visibilityOfElementLocated(orderSuccess))
                 .isDisplayed();
     }
-
 
     private void acceptCookiesIfPresent() {
         try {
