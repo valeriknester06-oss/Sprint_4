@@ -24,7 +24,6 @@ public class DriverFactory {
                 WebDriverManager.chromedriver().setup();
                 ChromeOptions ch = new ChromeOptions();
 
-                // чтобы браузер не зависал на рендере
                 ch.setPageLoadStrategy(PageLoadStrategy.EAGER);
                 ch.addArguments("--disable-dev-shm-usage");
                 ch.addArguments("--disable-gpu");
